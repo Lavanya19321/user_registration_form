@@ -7,3 +7,4 @@ class profile(models.Model):
     address=models.TextField()
     profile_pic=models.ImageField()
     
+    
