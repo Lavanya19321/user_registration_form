@@ -5,7 +5,12 @@
 <title>home page</title>
 {% endblock %}
 
-{% block block_body %}
+{% block body_block %}
      <center>
-        
+          {% if username %}
+        <h1>welcome to home page  {{username}}</h1>
+        {% else %}
+        <h1>welcome to home page</h1>
+        {% endif %}
      </center>
+{% endblock %}
