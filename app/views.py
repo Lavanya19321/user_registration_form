@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core.mail import send_mail
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from app.models import * 
 
 from app.forms import *
 
@@ -59,3 +61,16 @@ def home(request):
         d={'username':username}
         return render(request,'home.html',d)
     return render(request,'home.html',)
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
+@login_required
+def profile_display(request):
+    un=request.session.get('username')
+    uo=User.objects.get(username=un)
+    po=profile.objects.get(username=uo)
+    d={'uo':uo,'po':po}
+    return render(request,'profile_display.html',d)
